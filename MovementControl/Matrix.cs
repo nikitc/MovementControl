@@ -214,7 +214,7 @@ namespace MovementControl
 
         public static Matrix operator +(Matrix firstMatrix, Matrix secondMatrix)
         {
-            for (var i = 0; i < firstMatrix.Length; i++)
+            for (var i = 0; i < firstMatrix.RowsCount; i++)
             {
                 for (var j = 0; j < firstMatrix.Length; j++)
                 {

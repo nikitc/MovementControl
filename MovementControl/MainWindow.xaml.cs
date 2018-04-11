@@ -1,70 +1,81 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
+using MovementControl.Draw;
 
 namespace MovementControl
 {
     public partial class MainWindow
     {
-        private const int _fieldSize = 600;
-
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
+            Loaded += BuildGraphic;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void BuildGraphic(object sender, RoutedEventArgs e)
         {
             var visual = new DrawingVisual();
-
-            using (var dc = visual.RenderOpen())
+            var countPoints = 20;
+            var start = int.Parse(startField.Text);
+            var end = int.Parse(endField.Text);
+            
+            using (var drawingContext = visual.RenderOpen())
             {
-                DrawField(dc);
-                var drawingpen = new Pen(Brushes.Red, 1);
-                dc.DrawLine(drawingpen, new Point(300, 50), new Point(350, 0));
+                var drawer = new Drawer(drawingContext, start, end);
+                drawer.DrawField(30);
+                drawer.DrawFunction(countPoints, Example1);
             }
 
             var myDrawingImage = new DrawingImage(visual.Drawing);
             image1.Source = myDrawingImage;
         }
 
-        private void DrawField(DrawingContext dc)
+        private List<Matrix> Example1(int count)
         {
-            DrawAxis(dc);
-            DrawFieldX(dc);
-            DrawFieldY(dc);
-        }
-
-        private void DrawAxis(DrawingContext dc)
-        {
-            var drawingpen = new Pen(Brushes.Black, 1);
-            dc.DrawLine(drawingpen, new Point(300, 0), new Point(300, 600));
-            dc.DrawLine(drawingpen, new Point(0, 300), new Point(600, 300));
-
-            dc.DrawLine(drawingpen, new Point(300, 0), new Point(305, 10));
-            dc.DrawLine(drawingpen, new Point(300, 0), new Point(295, 10));
-            dc.DrawLine(drawingpen, new Point(600, 300), new Point(590, 295));
-            dc.DrawLine(drawingpen, new Point(600, 300), new Point(590, 305));
-        }
-
-        private void DrawFieldX(DrawingContext dc)
-        {
-            var drawingpen = new Pen(Brushes.Gray, 0.5);
-            for (var i = 0; i <= 600; i += 10)
+            var start = new []
             {
-                dc.DrawLine(drawingpen, new Point(0, i), new Point(600, i));
+                new double[] {-1},
+                new double[] {2},
+                new double[] {4},
+                new double[] {5}
+            };
+            var startVector = new Matrix(start);
+            var result = new List<Matrix>{ startVector };
+            for (var i = 0; i < count; i++)
+            {
+                var funcs = new List<Func<double, double>>
+                {
+                    x => Math.Cos(x) - 3,
+                    Math.Cos,
+                    x => Math.Sin(x) + 2,   
+                    Math.Sin
 
+                };
+                var current = GetMatrix1(i, i + 1) * startVector + CalcIntegral(i, i + 1, funcs);
+                result.Add(current);
             }
+
+            return result;
         }
 
-        private void DrawFieldY(DrawingContext dc)
+        private Matrix CalcIntegral(double t1, double t2, List<Func<double, double>> funcs)
         {
-            var drawingpen = new Pen(Brushes.Gray, 0.5);
-            for (var i = 0; i <= 600; i += 10)
-            {
-                dc.DrawLine(drawingpen, new Point(i, 0), new Point(i, 600));
+            return IntegralCalculator.RightRectanglesFormula(t1, t2, 0.1, funcs);
+        }
 
-            }
+        private static Matrix GetMatrix1(double ta, double tb)
+        {
+            var X = new[]
+            {
+                new [] {1, tb - ta, 0, 0},
+                new double[] {0, 1, 0, 0},
+                new [] {0, 0, 1, tb - ta},
+                new double[] {0, 0, 0, 1},
+            };
+
+            return new Matrix(X);
         }
     }
 }

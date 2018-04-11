@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Title="Построение графиков движения" Height="650" Width="800">
     <Grid>
-        <Image Name="image1" Height="600" Width="600"/>
+        <Image Name="image1" Height="600" Width="610" Margin="0,9,192,10"/>
+        <Label Content="Отрезок:" HorizontalAlignment="Left" Margin="666,10,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.155,1.516"/>
+        <Label Content="a =" HorizontalAlignment="Left" Margin="644,59,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox Name="startField" HorizontalAlignment="Left" Height="23" Margin="680,65,0,0" TextWrapping="Wrap" Text="-300" VerticalAlignment="Top" Width="78" />
+        <Label Content="b =" HorizontalAlignment="Left" Margin="644,108,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.594,-0.172"/>
+        <TextBox Name="endField" HorizontalAlignment="Left" Height="23" Margin="681,114,0,0" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="78"/>
+        <Button Name="buildGraphicButton" Click="BuildGraphic" Content="Построить" HorizontalAlignment="Left" Margin="666,163,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
