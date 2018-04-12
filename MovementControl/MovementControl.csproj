@@ -72,6 +72,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Draw\Drawer.cs" />
+    <Compile Include="Examples\Example1.cs" />
+    <Compile Include="Examples\IMovementControlContidion.cs" />
     <Compile Include="HouseholderTransformation.cs" />
     <Compile Include="IntegralCalculator.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -107,8 +109,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Examples\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

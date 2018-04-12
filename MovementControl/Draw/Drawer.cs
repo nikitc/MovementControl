@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
+using MovementControl.Examples;
 
 namespace MovementControl.Draw
 {
@@ -73,10 +74,10 @@ namespace MovementControl.Draw
             return new Point(x + _fieldSize / 2, _fieldSize / 2 - y);
         }
 
-        public void DrawFunction(int count, Func<int, List<Matrix>> function)
+        public void DrawFunction(int count, Func<int, IMovementControlContidion, List<Matrix>> movementControl, IMovementControlContidion condititon)
         {
             var drawingPen = new Pen(Brushes.Red, 1);
-            var points = new Queue<Matrix>(function(count));
+            var points = new Queue<Matrix>(movementControl(count, condititon));
             var oldPoint = points.Dequeue();
             var step = GetStepCell(_start, _end);
             while (points.Count != 0)
