@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MovementControl.Examples;
 
 namespace MovementControl
 {
     public static class IntegralCalculator
     {
         public static Matrix RightRectanglesFormula(double start, double end, 
-                                                    double step, List<Func<double, double>> funcs)
+                                                    double step, IMovementControlCondition condition)
         {
             var startv = new []
             {
@@ -30,28 +29,15 @@ namespace MovementControl
                 tempVector.Clear();
                 for (var j = 0; j < result.RowsCount; j++)
                 {
-                    var a = funcs[j](start + i * step);
-                    tempVector[j, 0] = funcs[j](start + i * step);
+                    tempVector[j, 0] = condition.Control[j](start + i * step);
                 }
 
-                var e = GetMatrix1(i, end) * tempVector;
-                result += GetMatrix1(i, end) * tempVector;
+                var different = end - (start + i * step); 
+                var fundamentalMatrix = new FundamentalMatrix.FundamentalMatrix(condition.ConstantCoefficientsMatrix, different).GetFundamentalMatrix();
+                result += step * fundamentalMatrix * tempVector;
             }
 
-            return step * result;
-        }
-
-        private static Matrix GetMatrix1(double ta, double tb)
-        {
-            var X = new[]
-            {
-                new double[] {1, tb - ta, 0, 0},
-                new double[] {0, 1, 0, 0},
-                new double[] {0, 0, 1, tb - ta},
-                new double[] {0, 0, 0, 1},
-            };
-
-            return new Matrix(X);
+            return result;
         }
     }
 }

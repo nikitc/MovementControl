@@ -265,6 +265,22 @@ namespace MovementControl
             }
         }
 
+        public double[,] GetTwoDemensionalMatrix()
+        {
+            var twoDemensionalMatrix = new double[Length, Length];
+
+            for (var i = 0; i < Length; i++)
+            {
+                for (var j = 0; j < Length; j++)
+                {
+                    twoDemensionalMatrix[i, j] = this[i, j];
+                }
+            }
+
+            return twoDemensionalMatrix;
+        }
+
+
         public override string ToString()
         {
             return string.Join("\n", Elements.Select(line => string.Join(" ", line)));

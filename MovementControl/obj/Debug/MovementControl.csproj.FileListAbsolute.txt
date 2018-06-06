@@ -21,3 +21,13 @@ c:\users\nikita\source\repos\MovementControl\MovementControl\obj\Debug\MovementC
 c:\users\nikita\source\repos\MovementControl\MovementControl\obj\Debug\MovementControl.csproj.CoreCompileInputs.cache
 c:\users\nikita\source\repos\MovementControl\MovementControl\obj\Debug\MovementControl.exe
 c:\users\nikita\source\repos\MovementControl\MovementControl\obj\Debug\MovementControl.pdb
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.dll
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.pdb
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.xml
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\alglibnet2.dll
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\Antlr4.Runtime.dll
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\MathParser.dll
+C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\Antlr4.Runtime.xml
