@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Mathos.Parser;
 using MovementControl.Draw;
 using MovementControl.Examples;
@@ -16,25 +18,59 @@ namespace MovementControl
             Loaded += BuildGraphic;
         }
 
-        private void BuildGraphic(object sender, RoutedEventArgs e)
+        public int GetTime(TextBox time)
         {
-            var count = int.Parse(countPoints.Text);
-            var control = GetControl();
-            var constantCoefficientsMatrix = GetConstantCoefficientsMatrix();
-            var startVector = GetStartVector();
+            time.BorderBrush = Brushes.DarkGray;
+            if (!int.TryParse(time.Text, out var currentTime))
+            {
+                time.BorderBrush = Brushes.Red;
+                throw new FormatException();
+            }
 
-            var drawer = new Drawer(MovementGraph);
-            var condition = new MovementControlCondition(control, startVector, constantCoefficientsMatrix);
-            drawer.DrawFunction(count, BuildMovementControl, condition);
+            return currentTime;
         }
 
-        private List<Matrix> BuildMovementControl(int count, IMovementControlCondition condition)
+        private bool isCorrectInterval(int time1, int time2)
         {
-            var result = new List<Matrix>{ condition.StartVector };
-            for (var i = 0; i < count; i++)
+            return time1 < time2;
+        }
+
+        private void BuildGraphic(object sender, RoutedEventArgs e)
+        {
+            errorLabel.Visibility = Visibility.Hidden;
+            intervalError.Visibility = Visibility.Hidden;
+
+            try
+            {
+                var time1 = GetTime(t1);
+                var time2 = GetTime(t2);
+                if (!isCorrectInterval(time1, time2))
+                {
+                    intervalError.Visibility = Visibility.Visible;
+                    return;
+                }
+
+                var control = GetControl();
+                var constantCoefficientsMatrix = GetConstantCoefficientsMatrix();
+                var startVector = GetStartVector();
+
+                var drawer = new Drawer(MovementGraph);
+                var condition = new MovementControlCondition(control, startVector, constantCoefficientsMatrix);
+                drawer.DrawFunction(time1, time2, BuildMovementControl, condition);
+            }
+            catch (Exception)
+            {
+                errorLabel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private List<Matrix> BuildMovementControl(int time1, int time2, IMovementControlCondition condition)
+        {
+            var result = new List<Matrix> { condition.StartVector };
+            for (var i = time1; i < time2; i++)
             {
                 var fundamentalMatrix = new FundamentalMatrix.FundamentalMatrix(condition.ConstantCoefficientsMatrix, 1).GetFundamentalMatrix();
-                var current =  fundamentalMatrix * result.Last()
+                var current = fundamentalMatrix * result.Last()
                                     + CalcIntegral(i, i + 1, condition);
                 result.Add(current);
             }
@@ -42,9 +78,9 @@ namespace MovementControl
             return result;
         }
 
-        private Matrix CalcIntegral(double t1, double t2, IMovementControlCondition condition)
+        private Matrix CalcIntegral(double time1, double time2, IMovementControlCondition condition)
         {
-            return IntegralCalculator.RightRectanglesFormula(t1, t2, 0.1, condition);
+            return IntegralCalculator.RightRectanglesFormula(time1, time2, 0.1, condition);
         }
 
 
@@ -100,14 +136,23 @@ namespace MovementControl
         private Matrix GetConstantCoefficientsMatrix()
         {
             var countVariables = 4;
-            var expressions = new [] { systemX1.Text, systemX2.Text, systemX3.Text, systemX4.Text };
+            var expressions = new[] { systemX1.Text, systemX2.Text, systemX3.Text, systemX4.Text };
             var constantCoefficientMatrix = new Matrix(4, 4);
-            var variables = new List<string>{"x1", "x2", "x3", "x4"};
+            var variables = new List<string> { "x1", "x2", "x3", "x4" };
             for (var i = 0; i < countVariables; i++)
             {
-                var currentExpression = expressions[i];
-                constantCoefficientMatrix =
-                    SetCurrentExpression(currentExpression, constantCoefficientMatrix, i, variables);
+                systemX1.BorderBrush = Brushes.DarkGray;
+                try
+                {
+                    var currentExpression = expressions[i];
+                    constantCoefficientMatrix =
+                        SetCurrentExpression(currentExpression, constantCoefficientMatrix, i, variables);
+                }
+                catch (FormatException)
+                {
+                    systemX1.BorderBrush = Brushes.Red;
+                    throw;
+                }
             }
 
             return constantCoefficientMatrix;
@@ -123,29 +168,55 @@ namespace MovementControl
 
         private List<Func<double, double>> GetControl()
         {
-            return new List<Func<double, double>>
-            {
-                t => 0,
-                t => Math.Cos(t),
-                t => 0,
-                t => Math.Sin(t)
-            };
+            var controlTextBoxes = new[] { controlU1, controlU2, controlU3, controlU4 };
+            var parser = new MathParser();
+
+            return controlTextBoxes
+                .Select(currentControl =>
+                {
+                    currentControl.BorderBrush = Brushes.DarkGray;
+                    Func<double, double> currenControl = t =>
+                    {
+                        if (string.IsNullOrEmpty(currentControl.Text))
+                            return 0;
+
+                        try
+                        {
+                            var calcControlValue = currentControl.Text.Replace("t", t.ToString());
+                            return (double)parser.Parse(calcControlValue);
+                        }
+                        catch (FormatException)
+                        {
+                            currentControl.BorderBrush = Brushes.Red;
+                            throw;
+                        }
+                    };
+
+                    return currenControl;
+                })
+                .ToList();
         }
 
         private Matrix GetStartVector()
         {
-            var x1 = double.Parse(startVectorX1.Text);
-            var x2 = double.Parse(startVectorX2.Text);
-            var x3 = double.Parse(startVectorX3.Text);
-            var x4 = double.Parse(startVectorX4.Text);
-
-            return new Matrix(new[]
+            var vectorTextBoxes = new List<TextBox> { startVectorX1, startVectorX2, startVectorX3, startVectorX4 };
+            var startVector = new double[4][];
+            for (var i = 0; i < vectorTextBoxes.Count; i++)
             {
-                new [] {x1},
-                new [] {x2},
-                new [] {x3},
-                new [] {x4}
-            });
+                try
+                {
+                    var currentCoordinate = double.Parse(vectorTextBoxes[i].Text);
+                    startVector[i] = new[] { currentCoordinate };
+                    vectorTextBoxes[i].BorderBrush = Brushes.DarkGray;
+                }
+                catch (FormatException)
+                {
+                    vectorTextBoxes[i].BorderBrush = Brushes.Red;
+                    throw;
+                }
+            }
+
+            return new Matrix(startVector);
         }
     }
 }

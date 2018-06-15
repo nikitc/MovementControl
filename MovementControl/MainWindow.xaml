@@ -16,26 +16,40 @@
                 <lvc:Axis x:Name="Axis" LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <Label Content="Количество точек:" Margin="0,10,129,0" VerticalAlignment="Top" FontSize="12" RenderTransformOrigin="0.155,1.516" HorizontalAlignment="Right" Width="115" Grid.ColumnSpan="2"/>
-        <TextBox Name="countPoints" Height="23" Margin="0,13,46,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="78" Grid.Column="1" />
-        <Button Name="buildGraphicButton" Click="BuildGraphic" Content="Построить" HorizontalAlignment="Right" Margin="0,564,99,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2"/>
+        <Label Content="Отрезок [t1, t2]:" Margin="0,10,129,0" VerticalAlignment="Top" FontSize="12" RenderTransformOrigin="0.155,1.516" HorizontalAlignment="Right" Width="115" Grid.ColumnSpan="2"/>
+        <TextBox Name="t1" Height="23" Margin="0,14,79,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="25" Grid.Column="1" />
+        <Button Name="buildGraphicButton" Click="BuildGraphic" Content="Построить" HorizontalAlignment="Right" Margin="0,562,99,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2"/>
         <Label Content="Стартовый вектор:" Margin="0,50,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="115"/>
-        <Label Content="x1" Grid.Column="1" Margin="0,50,99,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="22"/>
-        <Label Content="x2" Grid.Column="1" HorizontalAlignment="Right" Margin="0,81,99,0" VerticalAlignment="Top"/>
-        <Label Content="x3" Grid.Column="1" HorizontalAlignment="Right" Margin="0,112,99,0" VerticalAlignment="Top"/>
-        <Label Content="x4" Grid.Column="1" HorizontalAlignment="Right" Margin="0,143,99,0" VerticalAlignment="Top"/>
-        <TextBox Name="startVectorX1" Grid.Column="1" Height="23" Margin="0,54,22,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" HorizontalAlignment="Right" Width="72"/>
-        <TextBox Name="startVectorX2" Grid.Column="1" Height="23" Margin="0,85,22,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" HorizontalAlignment="Right" Width="72"/>
-        <TextBox Name="startVectorX3" Grid.Column="1" Height="23" Margin="0,116,22,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="72"/>
-        <TextBox Name="startVectorX4" Grid.Column="1" Height="23" Margin="0,147,22,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="72"/>
+        <Label Content="x1" Margin="0,81,129,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="22" Grid.ColumnSpan="2"/>
+        <Label Content="x2" HorizontalAlignment="Right" Margin="0,112,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="x3" HorizontalAlignment="Right" Margin="0,143,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="x4" HorizontalAlignment="Right" Margin="0,169,129,0" VerticalAlignment="Top" RenderTransformOrigin="-0.364,1.115" Grid.ColumnSpan="2"/>
+        <TextBox Name="startVectorX1" Grid.Column="1" Height="23" Margin="0,81,22,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" HorizontalAlignment="Right" Width="106"/>
+        <TextBox Name="startVectorX2" Grid.Column="1" Height="23" Margin="0,112,22,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" HorizontalAlignment="Right" Width="106"/>
+        <TextBox Name="startVectorX3" Grid.Column="1" Height="23" Margin="0,143,22,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="106"/>
+        <TextBox Name="startVectorX4" Grid.Column="1" Height="23" Margin="0,173,22,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" RenderTransformOrigin="0.472,1.522" HorizontalAlignment="Right" Width="106"/>
         <Label Content="Система уравнений:" Margin="0,200,117,0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="127"/>
-        <Label Content="x1" Margin="0,226,69,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="22"/>
-        <Label Content="x2" HorizontalAlignment="Right" Margin="0,257,69,0" VerticalAlignment="Top" RenderTransformOrigin="0.364,1"/>
-        <Label Content="x3" HorizontalAlignment="Right" Margin="0,286,69,0" VerticalAlignment="Top"/>
-        <Label Content="x4" HorizontalAlignment="Right" Margin="0,314,69,0" VerticalAlignment="Top"/>
-        <TextBox Name="systemX1" Text="x2" HorizontalAlignment="Right" Height="23" Margin="0,231,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <TextBox Name="systemX2" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="23" Margin="0,261,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="systemX3" Text="x4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="23" Margin="0,289,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="systemX4" Text="" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="23" Margin="0,317,82,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.467,1.609"/>
+        <Label Content="x1" Margin="0,227,129,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="22" RenderTransformOrigin="7.5,-0.654" Grid.ColumnSpan="2"/>
+        <Label Content="x2" HorizontalAlignment="Right" Margin="0,258,129,0" VerticalAlignment="Top" RenderTransformOrigin="0.364,1" Grid.ColumnSpan="2"/>
+        <Label Content="x3" HorizontalAlignment="Right" Margin="0,287,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="x4" HorizontalAlignment="Right" Margin="0,316,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Name="systemX1" Text="x2" HorizontalAlignment="Right" Height="23" Margin="0,231,22,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="systemX2" Text="" HorizontalAlignment="Right" Height="23" Margin="0,261,22,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="systemX3" Text="x4" HorizontalAlignment="Right" Height="23" Margin="0,291,22,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="systemX4" Text="" HorizontalAlignment="Right" Height="23" Margin="0,319,22,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" RenderTransformOrigin="0.467,1.609" Grid.Column="1"/>
+        <Label Content="Управление относительно t:" HorizontalAlignment="Right" Margin="0,347,79,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="u1" HorizontalAlignment="Right" Margin="0,375,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="u2" HorizontalAlignment="Right" Margin="0,406,128,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="u3" HorizontalAlignment="Right" Margin="0,432,128,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="u4" HorizontalAlignment="Right" Margin="0,459,129,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Name="controlU1" HorizontalAlignment="Right" Height="23" Margin="0,378,22,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="controlU2" HorizontalAlignment="Right" Height="23" Margin="0,406,22,0" TextWrapping="Wrap" Text="cos(t)" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="controlU3" HorizontalAlignment="Right" Height="23" Margin="0,434,22,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <TextBox Name="controlU4" HorizontalAlignment="Right" Height="23" Margin="0,463,23,0" TextWrapping="Wrap" Text="sin(t)" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+        <Label Name="errorLabel"  Content="Одно или несколько полей &#10;заполнены неверно" Foreground="Red" HorizontalAlignment="Right" Margin="0,501,46,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="182" Height="46"/>
+        <TextBox Name="t2" Grid.Column="1" HorizontalAlignment="Right" Height="23" Margin="0,14,22,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="23"/>
+        <Label Content="t1:" Grid.Column="1" HorizontalAlignment="Right" Margin="0,11,105,0" VerticalAlignment="Top"/>
+        <Label Content="t2:" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,48,0" VerticalAlignment="Top"/>
+        <Label Name="intervalError" Foreground="Red" Content="t1 должно быть меньше t2" HorizontalAlignment="Right" Margin="0,483,71,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

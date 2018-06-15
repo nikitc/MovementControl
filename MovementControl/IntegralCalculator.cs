@@ -7,24 +7,22 @@ namespace MovementControl
         public static Matrix RightRectanglesFormula(double start, double end, 
                                                     double step, IMovementControlCondition condition)
         {
-            var startv = new []
+            var result = new Matrix(new []
             {
                 new double[] {0},
                 new double[] {0},
                 new double[] {0},
                 new double[] {0}
-            };
-            var temp = new[]
+            });
+            var tempVector = new Matrix(new[]
             {
                 new double[] {0},
                 new double[] {0},
                 new double[] {0},
                 new double[] {0}
-            };
-            var tempVector = new Matrix(temp);
-            var result = new Matrix(startv);
-            var m = (end - start) / step;
-            for (var i = 1; i < m + 1; i++)
+            });
+            var stepsCount = (end - start) / step;
+            for (var i = 1; i < stepsCount + 1; i++)
             {
                 tempVector.Clear();
                 for (var j = 0; j < result.RowsCount; j++)

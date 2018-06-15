@@ -28,6 +28,4 @@ C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveChart
 C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\LiveCharts.Wpf.xml
 C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\alglibnet2.dll
-C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\Antlr4.Runtime.dll
 C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\MathParser.dll
-C:\Users\Nikita\source\repos\MovementControl\MovementControl\bin\Debug\Antlr4.Runtime.xml

@@ -18,9 +18,9 @@ namespace MovementControl.Draw
             _cartesianChart = cartesianChart;
         }
         
-        public void DrawFunction(int count, Func<int, IMovementControlCondition, List<Matrix>> movementControl, IMovementControlCondition condititon)
+        public void DrawFunction(int time1, int time2, Func<int, int, IMovementControlCondition, List<Matrix>> movementControl, IMovementControlCondition condititon)
         {
-            var points = new Queue<Matrix>(movementControl(count, condititon));
+            var points = new Queue<Matrix>(movementControl(time1, time2, condititon));
             var mapper = Mappers.Xy<Point>()
                 .X(x => x.X)
                 .Y(x => x.Y);

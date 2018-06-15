@@ -6,22 +6,12 @@ namespace MovementControl.FundamentalMatrix
     public class FundamentalMatrix
     {
         public Matrix Matrix { get; set; }
-        public double t { get; set; }
-
-        public Matrix Pow(Matrix matrix, int pow)
-        {
-            var result = new Matrix(matrix.Length, matrix.Length);
-            matrix.CopyTo(result);
-            for (var i = 1; i < pow; i++)
-                result = result * matrix;
-
-            return result;
-        }
+        public double Time { get; set; }
 
         public FundamentalMatrix(Matrix matrix, double time)
         {
             Matrix = matrix;
-            t = time;
+            Time = time;
         }
 
         public Matrix GetFundamentalMatrix()
@@ -31,8 +21,7 @@ namespace MovementControl.FundamentalMatrix
             var vl = new double[Matrix.Length, Matrix.Length];
             var vr = new double[Matrix.Length, Matrix.Length];
             alglib.evd.rmatrixevd(Matrix.GetTwoDemensionalMatrix(), Matrix.Length, 1, ref eighers, ref wi, ref vl, ref vr);
-
-            var systemEquations = GetSystemEquation(eighers, t);
+            var systemEquations = GetSystemEquation(eighers, Time);
             var coefficients = SystemSolution.CalcSolution(systemEquations.Equation, systemEquations.FreeMembers);
 
             return CalcFundamentalRow(coefficients);
@@ -43,7 +32,7 @@ namespace MovementControl.FundamentalMatrix
             var fundamentalMatrix = coefficients[0] * Matrix.UnitMatrx(coefficients.Length);
             for (var i = 1; i < coefficients.Length; i++)
             {
-                fundamentalMatrix += coefficients[i] * Pow(Matrix, i);
+                fundamentalMatrix += coefficients[i] * Matrix.Pow(i);
             }
 
             return fundamentalMatrix;
@@ -83,33 +72,31 @@ namespace MovementControl.FundamentalMatrix
             var freeMembers = new List<double>();
             foreach (var eighNumber in multiplicityDict.Keys)
             {
-
                 freeMembers.Add(Math.Pow(Math.E, eighNumber * t));
-                var equation = new double[eighbers.Length];
+                var equationHead = new double[eighbers.Length];
                 for (var i = 0; i < eighbers.Length; i++)
-                    equation[i] = Math.Pow(eighNumber, i);
+                    equationHead[i] = Math.Pow(eighNumber, i);
 
-                systemEquation[count] = equation;
+                systemEquation[count] = equationHead;
                 count++;
-
 
                 if (multiplicityDict[eighNumber] > 1)
                 {
                     for (var i = 1; i < multiplicityDict[eighNumber]; i++)
                     {
                         freeMembers.Add(Math.Pow(t, i) * Math.Pow(Math.E, eighNumber * t));
-                        var equation2 = new double[eighbers.Length];
+                        var equationTail = new double[eighbers.Length];
 
                         for (var j = 0; j < i - 1; j++)
-                            equation2[j] = 0;
+                            equationTail[j] = 0;
 
-                        equation2[i] = i;
+                        equationTail[i] = i;
                         for (var j = i + 1; j < eighbers.Length; j++)
                         {
-                            equation2[j] = j * Math.Pow(eighNumber, j - 1);
+                            equationTail[j] = j * Math.Pow(eighNumber, j - 1);
                         }
 
-                        systemEquation[count] = equation2;
+                        systemEquation[count] = equationTail;
                         count++;
                     }
                 }
@@ -121,5 +108,5 @@ namespace MovementControl.FundamentalMatrix
                 FreeMembers = freeMembers.ToArray()
             };
         }
-    }
+    }   
 }
